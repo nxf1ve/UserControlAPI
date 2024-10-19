@@ -1,9 +1,9 @@
 package ru.pyzhov.UserControlAPI.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.pyzhov.UserControlAPI.model.User;
+import ru.pyzhov.UserControlAPI.service.UserService;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,25 +12,31 @@ import java.util.Optional;
 @RequestMapping("/api/v1/users")
 @AllArgsConstructor
 public class UserController {
+    private final UserService userService;
 
+    @GetMapping
     public List<User> getAllUsers() {
-        return null;
+        return userService.getAllUsers();
     }
 
-    public Optional<User> getUserByEmail(String email) {
-        return null;
+    @GetMapping("/{email}")
+    public Optional<User> getUserByEmail(@PathVariable String email) {
+        return userService.getUserByEmail(email);
     }
 
-    public User saveUser(User user) {
-        return null;
+    @PostMapping("save_user")
+    public User saveUser(@RequestBody User user) {
+        return userService.saveUser(user);
     }
 
-    public User updateUser(User user) {
-        return null;
+    @PutMapping("update_user")
+    public User updateUser(@RequestBody User user) {
+        return userService.updateUser(user);
     }
 
-    public void deleteUser(String email) {
-        // todo
+    @DeleteMapping("delete_user/{email}")
+    public void deleteUser(@PathVariable String email) {
+        userService.deleteUser(email);
     }
 
 }
